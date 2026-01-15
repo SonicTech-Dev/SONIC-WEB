@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#0b0b0c" />
+  <title>SONIC TECHNOLOGIES — Maintenance</title>
+
+  <!-- Modern, professional fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;900&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#0b0b0c;
+      --panel:#111214;
+      --muted:#9aa0a4;
+      --accent:#e11b23;
+      --max-width:960px;
+    }
+
+    html,body{
+      height:100%;
+      margin:0;
+      background:
+        radial-gradient(1200px 500px at 10% 20%, rgba(225,27,35,0.04), transparent 8%),
+        radial-gradient(800px 300px at 90% 80%, rgba(225,27,35,0.02), transparent 8%),
+        var(--bg);
+      color:#e6e6e6;
+      font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      -webkit-font-smoothing:antialiased;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:40px;
+      box-sizing:border-box;
+    }
+
+    /* Stage holds both the animated tile and the real card */
+    .stage {
+      position:relative;
+      width:100%;
+      max-width:var(--max-width);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    /* Intro tile: slides from left to center, then fades out */
+    .intro {
+      position:absolute;
+      left:50%;
+      top:50%;
+      transform: translate(-150%, -50%); /* start well left of center */
+      width: min(90vw, var(--max-width));
+      height: 280px; /* tile height approximating card height for visual effect */
+      background: #000;
+      border-radius:12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+      z-index:40;
+      pointer-events:none; /* don't intercept clicks */
+      animation:
+        slideIn 700ms cubic-bezier(.22,.9,.27,1) forwards,
+        fadeOut 300ms ease forwards 700ms;
+      will-change: transform, opacity;
+    }
+
+    @keyframes slideIn {
+      0% { transform: translate(-150%, -50%) scale(1); }
+      60% { transform: translate(-50%, -50%) scale(1); } /* centered (translate -50% centers) */
+      100% { transform: translate(-50%, -50%) scale(1); }
+    }
+
+    @keyframes fadeOut {
+      0% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+
+    /* Card (real design) — initially hidden, fades in after the intro */
+    .card{
+      width:100%;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border:1px solid rgba(255,255,255,0.03);
+      border-radius:12px;
+      padding:38px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+      display:flex;
+      flex-direction:column;
+      gap:28px;
+      opacity:0;
+      transform: translateY(8px);
+      z-index:10;
+      animation: cardFadeIn 420ms ease 760ms forwards;
+    }
+
+    @keyframes cardFadeIn {
+      from { opacity:0; transform: translateY(8px); }
+      to   { opacity:1; transform: translateY(0); }
+    }
+
+    /* Top-centered logo block */
+    .logo-top{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      width:100%;
+    }
+    .logo-top img{
+      max-width:220px;
+      width:32%;
+      height:auto;
+      display:block;
+      object-fit:contain;
+    }
+
+    /* Content area: left = status text (top-left), right = brand info / tagline */
+    .content-wrapper{
+      display:flex;
+      gap:28px;
+      align-items:flex-start;
+      justify-content:space-between;
+    }
+
+    .left {
+      flex:1 1 60%;
+      min-width:220px;
+    }
+
+    .right {
+      flex:0 0 36%;
+      min-width:180px;
+      display:flex;
+      flex-direction:column;
+      align-items:flex-end;
+      gap:6px;
+    }
+
+    /* Status heading placed top-left */
+    .status {
+      margin:0 0 12px 0;
+      font-family: "Montserrat", "Helvetica Neue", Arial, sans-serif;
+      font-weight:700;
+      font-size:28px;
+      color:#ffffff;
+      letter-spacing:0.02em;
+    }
+
+    .desc {
+      margin:0;
+      color:var(--muted);
+      font-size:15px;
+      line-height:1.6;
+      max-width:56ch;
+    }
+
+    /* Right column brand */
+    .brand-title {
+      font-family: "Montserrat", "Helvetica Neue", Arial, sans-serif;
+      font-weight:700;
+      font-size:18px;
+      color:var(--accent);
+      letter-spacing:0.12em;
+      text-align:right;
+    }
+
+    .brand-sub {
+      font-size:13px;
+      color:var(--muted);
+      text-align:right;
+    }
+
+    .note {
+      margin-top:16px;
+      font-size:13px;
+      color:rgba(255,255,255,0.28);
+      text-align:left;
+    }
+
+    /* ---------- New: per-entity slide-in after card animation completes ---------- */
+    /*
+      The card animation finishes at ~1.18s (760ms delay + 420ms duration).
+      We start these entity animations after that moment. Each entity is treated
+      as a separate animated piece and can be staggered slightly. These animations
+      only use transform and opacity so the final layout/ending positions are unchanged.
+    */
+    .slide-entity {
+      opacity: 0;
+      /* start off-screen to the left (from the side of the screen) */
+      transform: translateX(-110vw);
+      will-change: transform, opacity;
+      animation-name: slideFromSide;
+      animation-duration: 420ms;
+      animation-timing-function: cubic-bezier(.22,.9,.27,1);
+      animation-fill-mode: forwards;
+      /* default delay (can be overridden per-entity via --enter-delay) */
+      animation-delay: var(--enter-delay, 1.22s);
+    }
+
+    @keyframes slideFromSide {
+      from {
+        transform: translateX(-110vw);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    /* Per-entity delays (start after card animation is complete).
+       Slight stagger applied to make the entrance more impressive, but ending positions remain the same. */
+    .logo-entity     { --enter-delay: 1.22s; } /* logo: shortly after card ends */
+    .title-entity    { --enter-delay: 1.30s; } /* heading */
+    .desc-entity     { --enter-delay: 1.38s; } /* main paragraph */
+    .note-entity     { --enter-delay: 1.46s; } /* contact note */
+
+    @media (max-width:900px){
+      .content-wrapper{
+        flex-direction:column;
+        align-items:flex-start;
+      }
+      .right{
+        align-items:flex-start;
+        width:100%;
+      }
+      .brand-title { text-align:left; }
+      .brand-sub { text-align:left; }
+      .logo-top img{ width:40%; }
+      .intro { height:240px; }
+    }
+
+    @media (max-width:420px){
+      .logo-top img{ width:60%; }
+      .card{ padding:22px; }
+      .status { font-size:22px; }
+      .intro { height:200px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="stage" aria-hidden="false">
+    <!-- Animated intro tile (aria-hidden so it won't distract screen readers) -->
+    <div class="intro" aria-hidden="true"></div>
+
+    <!-- Real card — stays beneath the intro tile and fades in -->
+    <main class="card" role="main" aria-labelledby="maintenanceTitle">
+      <!-- logo from public/Static/logo.png -->
+      <div class="logo-top" aria-hidden="false">
+        <!-- added slide-entity + logo-entity classes so the logo slides in after the card -->
+        <img class="slide-entity logo-entity" src="/Static/logo.png" alt="Sonic Technologies logo">
+      </div>
+
+      <div class="content-wrapper">
+        <div class="left">
+          <!-- heading will slide in after the card -->
+          <h2 id="maintenanceTitle" class="status slide-entity title-entity">Website Under Maintenance</h2>
+
+          <!-- main description will slide in after the card -->
+          <p class="desc slide-entity desc-entity">Scheduled maintenance is currently underway. Access will be restored as soon as possible. Thank you for your patience.</p>
+
+          <!-- note will slide in after the card -->
+          <p class="note slide-entity note-entity">For urgent assistance contact <a href="mailto:gm@sonictech.ae" style="color:var(--muted)">gm@sonictech.ae</a>.</p>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // Remove the intro tile after its fadeOut animation completes so it stops blocking interaction
+    document.addEventListener('DOMContentLoaded', function () {
+      const intro = document.querySelector('.intro');
+      if (!intro) return;
+
+      intro.addEventListener('animationend', (e) => {
+        // Wait for the fadeOut animation to finish (its name is 'fadeOut')
+        if (e.animationName === 'fadeOut') {
+          // Remove the element from the DOM for clean-up
+          if (intro.parentNode) intro.parentNode.removeChild(intro);
+        }
+      }, { once: false });
+    });
+  </script>
+</body>
+</html>
