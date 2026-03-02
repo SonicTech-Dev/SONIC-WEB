@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#0b0b0c" />
+  <title>SONIC TECHNOLOGIES</title>
+
+  <!-- Modern, professional fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+  <!-- Custom cursor (desktop only via JS). Hidden on touch + reduced motion -->
+  <div class="cursor" aria-hidden="true">
+    <div class="cursor__dot"></div>
+    <div class="cursor__ring"></div>
+  </div>
+
+  <!-- Subtle background accents -->
+  <div class="bg-accents" aria-hidden="true">
+    <div class="bg-accents__glow bg-accents__glow--a"></div>
+    <div class="bg-accents__glow bg-accents__glow--b"></div>
+    <div class="bg-accents__grid"></div>
+    <div class="bg-accents__vignette"></div>
+  </div>
+
+  <!-- Top-right menu button (fixed) -->
+  <header class="topbar" role="banner">
+    <a class="brand" href="#home" aria-label="Sonic Technologies Home">
+      <img src="/Static/logo.png" alt="Sonic Technologies" />
+    </a>
+
+    <button class="menu-btn js-menu-open" type="button" aria-haspopup="dialog" aria-controls="drawer" aria-expanded="false">
+      <span class="menu-btn__icon" aria-hidden="true">
+        <span></span><span></span>
+      </span>
+      <span class="menu-btn__label">Menu</span>
+    </button>
+  </header>
+
+  <!-- Right drawer + backdrop -->
+  <div class="drawer-backdrop js-drawer-backdrop" hidden></div>
+
+  <aside
+    id="drawer"
+    class="drawer"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Site navigation"
+    aria-hidden="true"
+    tabindex="-1"
+  >
+    <div class="drawer__edge" aria-hidden="true"></div>
+
+    <div class="drawer__header">
+      <div class="drawer__title">
+        <span class="drawer__title-kicker">Navigation</span>
+        <span class="drawer__title-main">SONIC</span>
+      </div>
+
+      <button class="drawer__close js-menu-close" type="button" aria-label="Close menu">
+        <span aria-hidden="true">×</span>
+      </button>
+    </div>
+
+    <nav class="drawer__nav" aria-label="Primary">
+      <a class="drawer__link js-drawer-link" href="#home">Home</a>
+      <a class="drawer__link js-drawer-link" href="#services">Services</a>
+      <a class="drawer__link js-drawer-link" href="#projects">Projects / Case Studies</a>
+      <a class="drawer__link js-drawer-link" href="#about">About</a>
+      <a class="drawer__link js-drawer-link" href="#contact">Contact</a>
+    </nav>
+
+    <div class="drawer__footer">
+      <div class="drawer__meta">
+        <div class="drawer__meta-line">Enterprise technology. Built with precision.</div>
+        <a class="drawer__meta-link" href="mailto:gm@sonictech.ae">gm@sonictech.ae</a>
+      </div>
+    </div>
+  </aside>
+
+  <main id="home" class="page" role="main">
+    <!-- HERO -->
+    <section class="hero" aria-label="Hero">
+      <div class="container">
+        <div class="hero__inner">
+          <p class="kicker js-hero-kicker">SONIC TECHNOLOGIES</p>
+
+          <h1 class="hero__title js-hero-title">
+            Premium engineering for modern businesses.
+          </h1>
+
+          <p class="hero__sub js-hero-sub">
+            Secure, high-performance solutions delivered with enterprise discipline—designed to move fast without losing control.
+          </p>
+
+          <div class="hero__cta js-hero-cta">
+            <a class="btn btn--primary js-scroll" href="#contact">Get in touch</a>
+            <a class="btn btn--ghost js-scroll" href="#services">View services</a>
+          </div>
+
+          <div class="hero__statline js-hero-statline" aria-label="Highlights">
+            <div class="stat">
+              <div class="stat__value">Security-first</div>
+              <div class="stat__label">Hardening & best practices</div>
+            </div>
+            <div class="stat">
+              <div class="stat__value">Elite motion</div>
+              <div class="stat__label">Cinematic UX, no noise</div>
+            </div>
+            <div class="stat">
+              <div class="stat__value">Built to scale</div>
+              <div class="stat__label">Performance-minded delivery</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero__frame" aria-hidden="true">
+        <div class="hero__frame-inner"></div>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="services" class="section">
+      <div class="container">
+        <header class="section__header">
+          <h2 class="section__title">Services</h2>
+          <p class="section__lead">Focused capabilities for teams that value reliability and speed.</p>
+        </header>
+
+        <div class="cards">
+          <article class="card">
+            <h3 class="card__title">Web Platforms</h3>
+            <p class="card__text">Design and build premium web experiences with strong performance and clean architecture.</p>
+          </article>
+          <article class="card">
+            <h3 class="card__title">Systems Integration</h3>
+            <p class="card__text">Connect services, automate workflows, and reduce operational friction with predictable outcomes.</p>
+          </article>
+          <article class="card">
+            <h3 class="card__title">Security & Hardening</h3>
+            <p class="card__text">Practical security improvements—policies, headers, and posture—without over-engineering.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects" class="section section--alt">
+      <div class="container">
+        <header class="section__header">
+          <h2 class="section__title">Projects / Case Studies</h2>
+          <p class="section__lead">Selected work—clean, direct, and measurable.</p>
+        </header>
+
+        <div class="case-grid">
+          <article class="case">
+            <div class="case__tag">Delivery</div>
+            <h3 class="case__title">High-availability web deployment</h3>
+            <p class="case__text">Resilient rollout strategy, performance tuning, and production-grade monitoring.</p>
+          </article>
+          <article class="case">
+            <div class="case__tag">Experience</div>
+            <h3 class="case__title">Premium cinematic landing page</h3>
+            <p class="case__text">Motion system built with GSAP, accessibility respected, and brand discipline enforced.</p>
+          </article>
+          <article class="case">
+            <div class="case__tag">Security</div>
+            <h3 class="case__title">Hardening pass for client portals</h3>
+            <p class="case__text">Header policy review, dependency hygiene, and practical threat reduction.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="section">
+      <div class="container">
+        <header class="section__header">
+          <h2 class="section__title">About</h2>
+          <p class="section__lead">Engineering-led delivery with a premium standard.</p>
+        </header>
+
+        <div class="about">
+          <div class="about__panel">
+            <h3 class="about__title">What we optimize for</h3>
+            <ul class="about__list">
+              <li>Clarity over complexity</li>
+              <li>Security and stability by default</li>
+              <li>Performance that holds under load</li>
+              <li>Design that feels expensive—not busy</li>
+            </ul>
+          </div>
+
+          <div class="about__panel about__panel--accent">
+            <h3 class="about__title">Operating principle</h3>
+            <p class="about__text">
+              Build the critical path first, keep the surface clean, then raise quality with deliberate iteration.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="section section--alt">
+      <div class="container">
+        <header class="section__header">
+          <h2 class="section__title">Contact</h2>
+          <p class="section__lead">Direct line. Fast response.</p>
+        </header>
+
+        <div class="contact">
+          <div class="contact__panel">
+            <div class="contact__row">
+              <div class="contact__label">Email</div>
+              <div class="contact__value">
+                <a class="link" href="mailto:gm@sonictech.ae">gm@sonictech.ae</a>
+              </div>
+            </div>
+
+            <div class="contact__row">
+              <div class="contact__label">Engagement</div>
+              <div class="contact__value">Discovery → Plan → Build → Deliver</div>
+            </div>
+
+            <div class="contact__row">
+              <div class="contact__label">Availability</div>
+              <div class="contact__value">By appointment</div>
+            </div>
+
+            <div class="contact__actions">
+              <a class="btn btn--primary" href="mailto:gm@sonictech.ae">Email now</a>
+              <button class="btn btn--ghost js-menu-open" type="button">Open menu</button>
+            </div>
+          </div>
+
+          <div class="contact__side">
+            <div class="contact__badge">
+              <div class="contact__badge-title">SONIC RED</div>
+              <div class="contact__badge-text">Precision accents. Zero clutter.</div>
+            </div>
+            <p class="contact__fine">
+              This is a simple single-page layout by design. Sections expand as content becomes available.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer" role="contentinfo">
+      <div class="container footer__inner">
+        <div class="footer__left">© <span id="year"></span> SONIC TECHNOLOGIES</div>
+        <div class="footer__right">
+          <a class="link js-scroll" href="#home">Back to top</a>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <!-- GSAP + app script (no inline JS; maintainable static setup) -->
+  <script src="/vendor/gsap/gsap.min.js"></script>
+  <script src="/js/app.js"></script>
+</body>
+</html>

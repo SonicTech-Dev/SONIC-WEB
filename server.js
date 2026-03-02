@@ -1,10 +1,10 @@
-// Minimal Express server to serve the maintenance page
+// Minimal Express server to serve the site
 // Usage:
 //   npm install
 //   npm run dev   (development, with nodemon)
 //   npm start     (production)
 // Environment:
-//   PORT - optional port number (default 3000)
+//   PORT - optional port number (default 3050)
 
 const express = require('express');
 const helmet = require('helmet');
@@ -14,9 +14,11 @@ const app = express();
 const PORT = process.env.PORT || 3050;
 
 // Security hardening via helmet
-app.use(helmet({
-  contentSecurityPolicy: false // adjust if you add external inline scripts/styles
-}));
+app.use(
+  helmet({
+    contentSecurityPolicy: false, // keep disabled since we’re serving simple static assets and want to avoid CSP friction
+  })
+);
 
 // Hide X-Powered-By
 app.disable('x-powered-by');
@@ -28,8 +30,7 @@ app.use((req, res, next) => {
 });
 
 // Serve static files from the project's public folder.
-// Your logo path: C:\PROJECTS\SONIC-WEB\public\Static\logo.png
-// It will be available in the app as /Static/logo.png
+// Your logo path: public/Static/logo.png => available as /Static/logo.png
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Fallback for unknown paths — serve index.html
@@ -38,5 +39,5 @@ app.use((req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Maintenance site running: http://localhost:${PORT} (PORT=${PORT})`);
+  console.log(`Site running: http://localhost:${PORT} (PORT=${PORT})`);
 });
